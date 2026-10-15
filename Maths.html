@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript String & Math Functions</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #172554;
+        }
+
+        header {
+            background: #0b1f3a;
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+            border-bottom: 5px solid #ff8c00;
+        }
+
+        header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #dbeafe;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 25px;
+            margin: 30px 0 18px;
+            border-left: 5px solid #ff8c00;
+            padding-left: 12px;
+        }
+
+        .input-panel {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0b1f3a12;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid #ff8c00;
+            border-color: #ff8c00;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-top: 4px solid #ff8c00;
+            box-shadow: 0 4px 15px #0b1f3a12;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #0b1f3a;
+            font-size: 18px;
+        }
+
+        button {
+            background: #0b1f3a;
+            color: white;
+            border: none;
+            padding: 11px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 3px 2px;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #ff8c00;
+            color: #0b1f3a;
+        }
+
+        .orange-btn {
+            background: #ff8c00;
+            color: #0b1f3a;
+        }
+
+        .result {
+            background: #eef4fc;
+            color: #0b1f3a;
+            padding: 12px;
+            border-radius: 7px;
+            margin-top: 12px;
+            min-height: 42px;
+            overflow-wrap: anywhere;
+            line-height: 1.5;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        footer {
+            margin-top: 45px;
+            padding: 22px;
+            text-align: center;
+            background: #0b1f3a;
+            color: white;
+        }
+
+        footer span {
+            color: #ff8c00;
+        }
+
+        @media (max-width: 650px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>JavaScript String & Math Functions</h1>
+    <p>Explore JavaScript functions with interactive examples</p>
+</header>
+
+<div class="container">
+
+    <!-- STRING FUNCTIONS -->
+    <h2 class="section-title">01. String Functions</h2>
+
+    <div class="input-panel">
+        <label for="textInput">Enter Your Text</label>
+        <textarea id="textInput"
+            placeholder="Example: JavaScript is a powerful language. JavaScript is fun.">JavaScript is a powerful language. JavaScript is fun.</textarea>
+
+        <label for="wordInput">Enter a Word to Search or Replace</label>
+        <input type="text" id="wordInput" placeholder="Example: JavaScript">
+
+        <div class="button-group">
+            <button onclick="stringLength()">Length</button>
+            <button onclick="findFirst()">First Occurrence</button>
+            <button onclick="findLast()">Last Occurrence</button>
+            <button onclick="searchWord()">Search Word</button>
+            <button onclick="changeCase('upper')">Uppercase</button>
+            <button onclick="changeCase('lower')">Lowercase</button>
+        </div>
+
+        <div class="result" id="stringResult" aria-live="polite">
+            Your string results will appear here.
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Slice Operation</h3>
+            <label for="sliceStart">Start Index</label>
+            <input type="number" id="sliceStart" value="0">
+
+            <label for="sliceEnd">End Index</label>
+            <input type="number" id="sliceEnd" value="10">
+
+            <button onclick="sliceText()">Perform Slice</button>
+            <div class="result" id="sliceResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Substring Operation</h3>
+            <label for="subStart">Start Index</label>
+            <input type="number" id="subStart" value="0">
+
+            <label for="subEnd">End Index</label>
+            <input type="number" id="subEnd" value="10">
+
+            <button onclick="substringText()">Perform Substring</button>
+            <div class="result" id="substringResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Substr Operation</h3>
+            <label for="substrStart">Start Index</label>
+            <input type="number" id="substrStart" value="0">
+
+            <label for="substrLength">Length</label>
+            <input type="number" id="substrLength" value="10">
+
+            <button onclick="substrText()">Perform Substr</button>
+            <div class="result" id="substrResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Replace Word</h3>
+            <label for="replaceOld">Word to Replace</label>
+            <input type="text" id="replaceOld" placeholder="Old word">
+
+            <label for="replaceNew">New Word</label>
+            <input type="text" id="replaceNew" placeholder="New word">
+
+            <button onclick="replaceText()">Replace First</button>
+            <button class="orange-btn" onclick="replaceAllText()">Replace All</button>
+
+            <div class="result" id="replaceResult">Result appears here.</div>
+        </div>
+
+    </div>
+
+    <!-- MATH FUNCTIONS -->
+    <h2 class="section-title">02. Math Functions</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Power and Square Root</h3>
+
+            <label for="base">Base Number</label>
+            <input type="number" id="base" value="5" step="any">
+
+            <label for="exponent">Exponent</label>
+            <input type="number" id="exponent" value="2" step="any">
+
+            <button onclick="calculatePower()">Calculate Power</button>
+            <button onclick="calculateSqrt()">Square Root of Base</button>
+
+            <div class="result" id="powerResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Round, Ceiling and Floor</h3>
+
+            <label for="roundNum">Enter a Decimal Number</label>
+            <input type="number" id="roundNum" value="4.7" step="any">
+
+            <button onclick="roundValues()">Calculate All</button>
+
+            <div class="result" id="roundResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Absolute Value</h3>
+
+            <label for="absNum">Enter a Number</label>
+            <input type="number" id="absNum" value="-25" step="any">
+
+            <button onclick="absoluteValue()">Calculate Absolute</button>
+
+            <div class="result" id="absResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Sine and Cosine</h3>
+
+            <label for="angle">Enter Angle in Degrees</label>
+            <input type="number" id="angle" value="30" step="any">
+
+            <button onclick="trigValues()">Calculate Sin & Cos</button>
+
+            <div class="result" id="trigResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Minimum and Maximum</h3>
+
+            <label for="numbers">Enter Numbers (comma-separated)</label>
+            <input type="text" id="numbers" value="10, 25, 5, 40, 15">
+
+            <button onclick="minMax()">Find Min & Max</button>
+
+            <div class="result" id="minMaxResult">Result appears here.</div>
+        </div>
+
+        <div class="card">
+            <h3>Random Number Generator</h3>
+
+            <p style="margin-bottom: 15px; line-height: 1.6;">
+                Generate a random whole number between 1 and 100.
+            </p>
+
+            <button class="orange-btn" onclick="randomNumber()">Generate Random Number</button>
+
+            <div class="result" id="randomResult">Your random number appears here.</div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>Designed with <span>HTML, CSS & JavaScript</span></p>
+    <p style="margin-top: 8px;">JavaScript Function Demonstration</p>
+</footer>
+
+<script>
+    // Helper function to get the input text
+    function getText() {
+        return document.getElementById("textInput").value;
+    }
+
+    function getWord() {
+        return document.getElementById("wordInput").value;
+    }
+
+    function showResult(id, message) {
+        document.getElementById(id).textContent = message;
+    }
+
+    // STRING FUNCTIONS
+
+    // 1. Find string length
+    function stringLength() {
+        let text = getText();
+        showResult("stringResult", "String Length: " + text.length);
+    }
+
+    // 2. Find first occurrence
+    function findFirst() {
+        let text = getText();
+        let word = getWord();
+
+        if (word === "") {
+            showResult("stringResult", "Please enter a word to search.");
+            return;
+        }
+
+        let position = text.indexOf(word);
+
+        showResult(
+            "stringResult",
+            position === -1
+                ? "Word not found."
+                : "First occurrence index: " + position
+        );
+    }
+
+    // 3. Find last occurrence
+    function findLast() {
+        let text = getText();
+        let word = getWord();
+
+        if (word === "") {
+            showResult("stringResult", "Please enter a word to search.");
+            return;
+        }
+
+        let position = text.lastIndexOf(word);
+
+        showResult(
+            "stringResult",
+            position === -1
+                ? "Word not found."
+                : "Last occurrence index: " + position
+        );
+    }
+
+    // 4. Search for a word
+    function searchWord() {
+        let text = getText();
+        let word = getWord();
+
+        if (word === "") {
+            showResult("stringResult", "Please enter a word to search.");
+            return;
+        }
+
+        let position = text.search(word);
+
+        showResult(
+            "stringResult",
+            position === -1
+                ? "Word not found."
+                : "Word found at index: " + position
+        );
+    }
+
+    // 5. Uppercase and lowercase
+    function changeCase(type) {
+        let text = getText();
+
+        if (type === "upper") {
+            showResult("stringResult", text.toUpperCase());
+        } else {
+            showResult("stringResult", text.toLowerCase());
+        }
+    }
+
+    // 6. Slice
+    function sliceText() {
+        let text = getText();
+        let start = Number(document.getElementById("sliceStart").value);
+        let end = Number(document.getElementById("sliceEnd").value);
+
+        showResult("sliceResult", text.slice(start, end));
+    }
+
+    // 7. Substring
+    function substringText() {
+        let text = getText();
+        let start = Number(document.getElementById("subStart").value);
+        let end = Number(document.getElementById("subEnd").value);
+
+        showResult("substringResult", text.substring(start, end));
+    }
+
+    // 8. Substr
+    function substrText() {
+        let text = getText();
+        let start = Number(document.getElementById("substrStart").value);
+        let length = Number(document.getElementById("substrLength").value);
+
+        // substr() is deprecated but retained for this assignment.
+        showResult("substrResult", text.substr(start, length));
+    }
+
+    // 9. Replace first occurrence
+    function replaceText() {
+        let text = getText();
+        let oldWord = document.getElementById("replaceOld").value;
+        let newWord = document.getElementById("replaceNew").value;
+
+        if (oldWord === "") {
+            showResult("replaceResult", "Enter the word to replace.");
+            return;
+        }
+
+        showResult("replaceResult", text.replace(oldWord, newWord));
+    }
+
+    // 10. Replace all occurrences
+    function replaceAllText() {
+        let text = getText();
+        let oldWord = document.getElementById("replaceOld").value;
+        let newWord = document.getElementById("replaceNew").value;
+
+        if (oldWord === "") {
+            showResult("replaceResult", "Enter the word to replace.");
+            return;
+        }
+
+        showResult("replaceResult", text.replaceAll(oldWord, newWord));
+    }
+
+    // MATH FUNCTIONS
+
+    // 11. Power
+    function calculatePower() {
+        let base = Number(document.getElementById("base").value);
+        let exponent = Number(document.getElementById("exponent").value);
+        let result = Math.pow(base, exponent);
+
+        showResult("powerResult", "Power: " + result);
+    }
+
+    // 12. Square root
+    function calculateSqrt() {
+        let base = Number(document.getElementById("base").value);
+
+        if (base < 0) {
+            showResult("powerResult", "Square root of a negative number is not a real number.");
+            return;
+        }
+
+        showResult("powerResult", "Square Root: " + Math.sqrt(base));
+    }
+
+    // 13. Round, ceil and floor
+    function roundValues() {
+        let num = Number(document.getElementById("roundNum").value);
+
+        showResult(
+            "roundResult",
+            "Round: " + Math.round(num) +
+            " | Ceiling: " + Math.ceil(num) +
+            " | Floor: " + Math.floor(num)
+        );
+    }
+
+    // 14. Absolute value
+    function absoluteValue() {
+        let num = Number(document.getElementById("absNum").value);
+
+        showResult("absResult", "Absolute Value: " + Math.abs(num));
+    }
+
+    // 15. Sine and cosine (convert degrees to radians)
+    function trigValues() {
+        let degrees = Number(document.getElementById("angle").value);
+        let radians = degrees * Math.PI / 180;
+
+        let sine = Math.sin(radians);
+        let cosine = Math.cos(radians);
+
+        showResult(
+            "trigResult",
+            "Sin(" + degrees + "°): " + sine.toFixed(4) +
+            " | Cos(" + degrees + "°): " + cosine.toFixed(4)
+        );
+    }
+
+    // 16. Minimum and maximum
+    function minMax() {
+        let input = document.getElementById("numbers").value.trim();
+
+        if (input === "") {
+            showResult("minMaxResult", "Please enter some numbers.");
+            return;
+        }
+
+        let values = input.split(",").map(value => value.trim());
+
+        if (values.some(value => value === "" || !Number.isFinite(Number(value)))) {
+            showResult("minMaxResult", "Enter valid numbers separated by commas.");
+            return;
+        }
+
+        let nums = values.map(Number);
+
+        showResult(
+            "minMaxResult",
+            "Minimum: " + Math.min(...nums) +
+            " | Maximum: " + Math.max(...nums)
+        );
+    }
+
+    // 17. Generate random number
+    function randomNumber() {
+        let number = Math.floor(Math.random() * 100) + 1;
+
+        showResult("randomResult", "Random Number: " + number);
+    }
+</script>
+
+</body>
+</html>
